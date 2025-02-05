@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './landing-page.component.html',
-  styleUrl: './landing-page.component.sass'
+  styleUrl: './landing-page.component.sass',
 })
-export class LandingPageComponent {
-
-}
+export class LandingPageComponent {}

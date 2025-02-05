@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './withdraw.component.html',
-  styleUrl: './withdraw.component.sass'
+  styleUrl: './withdraw.component.sass',
 })
-export class WithdrawComponent {
-
-}
+export class WithdrawComponent {}

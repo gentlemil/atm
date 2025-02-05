@@ -5,8 +5,6 @@ import { Component } from '@angular/core';
   standalone: true,
   imports: [],
   templateUrl: './dashboard.component.html',
-  styleUrl: './dashboard.component.sass'
+  styleUrl: './dashboard.component.sass',
 })
-export class DashboardComponent {
-
-}
+export class DashboardComponent {}
