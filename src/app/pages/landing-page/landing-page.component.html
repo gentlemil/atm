@@ -1,1 +1,21 @@
-<p>landing-page works!</p>
+<div class="container">
+  <app-logo />
+
+  <h2 class="subtitle">
+    More than 7,000 Euronet ATMs provide convenient access to money in the most
+    convenient locations for you
+  </h2>
+
+  <div class="btn-container">
+    <div class="card flex justify-center">
+      <button
+        pButton
+        type="button"
+        class="gold-btn"
+        (click)="navigateTo('/login')"
+      >
+        <span pButtonLabel class="gold-btn__text">SIGN IN</span>
+      </button>
+    </div>
+  </div>
+</div>
