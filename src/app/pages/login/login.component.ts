@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
+import { NgIf } from '@angular/common';
 import {
   FormBuilder,
   FormControl,
@@ -8,8 +8,12 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { NgIf } from '@angular/common';
+
+import { AuthService } from '../../core/services/auth.service';
+
+import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
 import { PasswordModule } from 'primeng/password';
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -24,6 +28,7 @@ import { PasswordModule } from 'primeng/password';
   styleUrl: './login.component.sass',
 })
 export class LoginComponent implements OnInit {
+  private authService = inject(AuthService);
   private fb = inject(FormBuilder);
 
   public form!: FormGroup;
@@ -57,8 +62,8 @@ export class LoginComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
-    // TODO
-    console.log(this.form.controls['pinCode'].value);
+    const pinCode = this.form.controls['pinCode'].value;
+    this.authService.login(pinCode);
   }
 
   private makeTouchedAndDirty(control: string): void {
