@@ -18,6 +18,7 @@ import { PasswordModule } from 'primeng/password';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { IAuthResponse } from '../../core/models/types';
+import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ import { IAuthResponse } from '../../core/models/types';
     NgIf,
     PasswordModule,
     AsyncPipe,
+    OnlyNumbersDirective,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass',
