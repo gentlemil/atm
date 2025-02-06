@@ -1,1 +1,20 @@
-<p>dashboard works!</p>
+<ng-container *ngIf="{ user: user$ | async } as vm">
+  <ng-container *ngIf="!!vm.user">
+    <section class="dashboard">
+      <h1 class="header">
+        {{ "Hello " + vm.user.first_name + " " + vm.user.last_name + "!" }}
+      </h1>
+
+      <div class="credit-card-container">
+        <app-credit-card [user]="vm.user"></app-credit-card>
+      </div>
+
+      <div class="btns-container">
+        <p-button>
+          <a [routerLink]="['/balance']">Balance</a>
+        </p-button>
+        <p-button><a [routerLink]="['/withdraw']">Balance</a></p-button>
+      </div>
+    </section>
+  </ng-container>
+</ng-container>
