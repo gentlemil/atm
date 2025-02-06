@@ -21,4 +21,15 @@ export class PersistanceService {
       return null;
     }
   }
+
+  remove(key: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      const localStorageItem = localStorage.getItem(key);
+      if (localStorageItem) {
+        resolve(localStorage.removeItem(key));
+      } else {
+        reject(() => console.error('Error getting from local storage'));
+      }
+    });
+  }
 }

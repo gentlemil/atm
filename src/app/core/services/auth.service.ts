@@ -40,6 +40,10 @@ export class AuthService {
       });
   }
 
+  public logout(): Promise<any> {
+    return this.persistanceService.remove('accessToken');
+  }
+
   public userData(): Observable<IUserAccount> {
     const url = API_URL + '/items/interview_user';
     return this.http
