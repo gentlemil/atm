@@ -1,5 +1,5 @@
 import { PersistanceService } from './persistance.service';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import {
   IAuthResponse,
@@ -25,8 +25,10 @@ export class AuthService {
       // TODO: display toast message
     }
     const url = API_URL + '/items/interview_auth';
+    const headers = new HttpHeaders().set('X-Skip-Interceptor', 'true');
+
     return this.http
-      .get<IAuthResponse>(url)
+      .get<IAuthResponse>(url, { headers })
       .toPromise()
       .then((res: IAuthResponse | undefined) => {
         if (!res) {
