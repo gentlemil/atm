@@ -16,6 +16,8 @@ import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboa
 
 import { PasswordModule } from 'primeng/password';
 import { Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { IAuthResponse } from '../../core/models/types';
 
 @Component({
   selector: 'app-login',
@@ -35,6 +37,7 @@ export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
   private pinAuthService = inject(PinAuthService);
   private fb = inject(FormBuilder);
+  private router = inject(Router);
 
   public form!: FormGroup;
 
@@ -74,14 +77,17 @@ export class LoginComponent implements OnInit {
     const pinCode = this.form.controls['pinCode'].value;
     const isValid = this.pinAuthService.validatePinCode(pinCode);
 
-    if (!isValid) {
-      console.log('Invalid PIN');
-      return;
-    }
+    // if (!isValid) {
+    //   console.log('Invalid PIN');
+    //   return;
+    // }
 
-    this.authService.login(pinCode).then((res) => {
+    this.authService.login(pinCode).then((res: IAuthResponse) => {
       console.log(res);
-      console.log('Login successful');
+
+      if (res.data[0].token) {
+        this.router.navigate(['/dashboard']);
+      }
     });
   }
 
