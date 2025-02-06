@@ -1,0 +1,22 @@
+.numeric-keyboard 
+  width: 400px
+  display: grid
+  grid-template-columns: repeat(12, 1fr)
+  gap: 0.625rem
+  padding-top: 2rem
+
+  &__element
+    grid-column: span 4 / span 4
+    height: 93px
+    font-size: 3.25rem
+    font-weight: 500
+    background: #FEB91C
+    color: #000000
+
+    i 
+      font-size: 3.5rem
+      color: #000000
+
+  &__element:hover
+    transition: transform 150ms
+    transform: scale(1.03)

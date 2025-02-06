@@ -1,1 +1,51 @@
-<p>login works!</p>
+<section class="login-page">
+  <h1>Enter your PIN</h1>
+
+  <form [formGroup]="form">
+    <p-password
+      type="number"
+      variant="outlined"
+      size="large"
+      formControlName="pinCode"
+      placeholder="Enter PIN"
+      [toggleMask]="true"
+      [feedback]="false"
+      class="input"
+    />
+
+    <div class="errors-container">
+      @if (form.controls['pinCode'].invalid && (form.controls['pinCode'].dirty))
+      {
+      <p
+        class="errors-container__error-message"
+        *ngIf="form.controls['pinCode'].errors?.['required']"
+      >
+        PIN is required.
+      </p>
+
+      <p
+        class="errors-container__error-message"
+        *ngIf="form.controls['pinCode'].errors?.['pattern']"
+      >
+        PIN must contain only digits 0-9.
+      </p>
+
+      <p
+        class="errors-container__error-message"
+        *ngIf="
+        form.controls['pinCode'].errors?.['minlength'] ||
+        form.controls['pinCode'].errors?.['maxlength']
+      "
+      >
+        PIN must be exactly 4 digits.
+      </p>
+      }
+    </div>
+
+    <app-numeric-keyboard
+      (keyboardEmitter)="updatePinCodeFormControl($event)"
+      (removeLastDigitEmitter)="removeLastDigit()"
+      (confirmPinCodeEmitter)="login()"
+    ></app-numeric-keyboard>
+  </form>
+</section>
