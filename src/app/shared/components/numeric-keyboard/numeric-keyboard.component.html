@@ -4,6 +4,7 @@
     *ngFor="let _ of [].constructor(9); let i = index"
     theme="SECONDARY"
     class="numeric-keyboard__element"
+    [disabled]="disabled"
   >
     <span class="text-h1">{{ i + 1 }}</span>
   </button>
@@ -11,6 +12,7 @@
   <button
     class="numeric-keyboard__element"
     (click)="confirmPinCodeEmitter.emit()"
+    [disabled]="disabled"
   >
     <i class="pi pi-check" style="color: #6c6"></i>
   </button>
@@ -19,6 +21,7 @@
     (click)="keyboardEmitter.emit(0)"
     theme="SECONDARY"
     class="numeric-keyboard__element"
+    [disabled]="disabled"
   >
     <span class="text-h1">{{ 0 }}</span>
   </button>
@@ -28,6 +31,7 @@
     theme="PRIMARY"
     class="numeric-keyboard__element"
     (click)="removeLastDigitEmitter.emit()"
+    [disabled]="disabled"
   >
     <i class="pi pi-times" style="color: #f04438"></i>
   </button>

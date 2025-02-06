@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   Output,
 } from '@angular/core';
 import { NgFor } from '@angular/common';
@@ -16,6 +17,8 @@ import { ButtonModule } from 'primeng/button';
   imports: [NgFor, ButtonModule],
 })
 export class NumericKeyboardComponent {
+  @Input({ required: false }) disabled = false;
+
   @Output() keyboardEmitter = new EventEmitter<number>();
   @Output() removeLastDigitEmitter = new EventEmitter<void>();
   @Output() confirmPinCodeEmitter = new EventEmitter<void>();

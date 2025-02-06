@@ -20,7 +20,7 @@ export interface IUserAccount {
 }
 
 export interface IUserAccountResponse {
-  data: IUserAccount;
+  data: IUserAccount[];
 }
 
 interface IAuth {

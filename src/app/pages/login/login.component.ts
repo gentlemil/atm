@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { AsyncPipe, NgIf } from '@angular/common';
 import {
   FormBuilder,
   FormControl,
@@ -10,9 +10,12 @@ import {
 } from '@angular/forms';
 
 import { AuthService } from '../../core/services/auth.service';
+import { PinAuthService } from '../../core/services/pin-auth.service';
 
 import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
+
 import { PasswordModule } from 'primeng/password';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -23,15 +26,20 @@ import { PasswordModule } from 'primeng/password';
     ReactiveFormsModule,
     NgIf,
     PasswordModule,
+    AsyncPipe,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass',
 })
 export class LoginComponent implements OnInit {
   private authService = inject(AuthService);
+  private pinAuthService = inject(PinAuthService);
   private fb = inject(FormBuilder);
 
   public form!: FormGroup;
+
+  public isLocked$: Observable<boolean> = this.pinAuthService.isLocked$;
+  public lockCounter$: Observable<number> = this.pinAuthService.lockCounter$;
 
   public ngOnInit(): void {
     this.form = this.fb.group({
@@ -62,12 +70,30 @@ export class LoginComponent implements OnInit {
     if (!this.form.valid) {
       return;
     }
+
     const pinCode = this.form.controls['pinCode'].value;
-    this.authService.login(pinCode);
+    const isValid = this.pinAuthService.validatePinCode(pinCode);
+
+    if (!isValid) {
+      console.log('Invalid PIN');
+      return;
+    }
+
+    this.authService.login(pinCode).then((res) => {
+      console.log(res);
+      console.log('Login successful');
+    });
   }
 
-  private makeTouchedAndDirty(control: string): void {
-    this.form.get(control)?.markAsDirty();
-    this.form.get(control)?.markAsTouched();
+  public getUserDetails() {
+    return this.authService.userData().subscribe();
+  }
+
+  private makeTouchedAndDirty(controlName: string): void {
+    const control = this.form.get(controlName);
+    if (control) {
+      control.markAsDirty();
+      control.markAsTouched();
+    }
   }
 }

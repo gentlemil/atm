@@ -1,5 +1,5 @@
 <section class="login-page">
-  <h1>Enter your PIN</h1>
+  <h1 class="header">Enter your PIN</h1>
 
   <form [formGroup]="form">
     <p-password
@@ -40,9 +40,15 @@
         PIN must be exactly 4 digits.
       </p>
       }
+
+      <p class="errors-container__error-message" *ngIf="isLocked$ | async">
+        Password input is locked. Please wait
+        {{ lockCounter$ | async }} seconds.
+      </p>
     </div>
 
     <app-numeric-keyboard
+      [disabled]="!!(isLocked$ | async)"
       (keyboardEmitter)="updatePinCodeFormControl($event)"
       (removeLastDigitEmitter)="removeLastDigit()"
       (confirmPinCodeEmitter)="login()"
