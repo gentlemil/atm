@@ -22,6 +22,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { InputErrorMessageComponent } from '../../shared/components/input-error-message/input-error-message.component';
 import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
+import { LogoutButtonComponent } from '../../shared/components/logout-button/logout-button.component';
 
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
@@ -43,6 +44,7 @@ import _ from 'lodash';
     InputErrorMessageComponent,
     InputTextModule,
     NumericKeyboardComponent,
+    LogoutButtonComponent,
   ],
   templateUrl: './withdraw.component.html',
   styleUrl: './withdraw.component.sass',
