@@ -1,6 +1,6 @@
 import { DatePipe, NgIf } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { IUserAccount } from '../../core/models/types';
+import { IUserAccount } from '../../../core/models/types';
 
 @Component({
   selector: 'app-credit-card',

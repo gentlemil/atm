@@ -1,9 +1,9 @@
 import { Component, inject } from '@angular/core';
 import { AuthService } from '../../core/services/auth.service';
-import { CreditCardComponent } from '../../shared/credit-card/credit-card.component';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { ButtonModule } from 'primeng/button';
 import { RouterLink } from '@angular/router';
+import { CreditCardComponent } from '../../shared/components/credit-card/credit-card.component';
 
 @Component({
   selector: 'app-dashboard',
