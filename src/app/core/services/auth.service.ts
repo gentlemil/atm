@@ -1,15 +1,21 @@
 import { PersistanceService } from './persistance.service';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+
 import {
   IAuthResponse,
   IUserAccount,
   IUserAccountResponse,
   PinCode,
 } from '../models/types';
+
 import { environment } from '../../../environments/environment';
+
 import { map, Observable } from 'rxjs';
+
 import { ToastrService } from 'ngx-toastr';
+
+import _ from 'lodash';
 
 const API_URL: string = environment.apiUrl;
 
@@ -23,8 +29,7 @@ export class AuthService {
 
   public login(pinCode: PinCode): Promise<IAuthResponse> {
     if (pinCode !== environment.validPassword) {
-      return Promise.reject(new Error('Invalid password'));
-      // TODO: display toast message
+      this.toast.error('Invalid passwotd.'); // TODO: display toast message
     }
     const url = API_URL + '/items/interview_auth';
     const headers = new HttpHeaders().set('X-Skip-Interceptor', 'true');

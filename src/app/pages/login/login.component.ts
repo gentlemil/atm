@@ -63,14 +63,19 @@ export class LoginComponent implements OnInit {
 
   public updatePinCodeFormControl(event: number): void {
     const currentValue = this.form.get('pinCode')?.value || '';
-    const newValue = currentValue + event;
+    // const newValue = currentValue + event;
+    const newValue = _.concat(currentValue.split(''), event.toString()).join(
+      // concat() function from 'lodash;
+      ''
+    );
     this.form.get('pinCode')?.setValue(newValue);
     this.makeTouchedAndDirty('pinCode');
   }
 
   public removeLastDigit(): void {
     const currentValue = this.form.get('pinCode')?.value || '';
-    const newValue = currentValue.slice(0, -1);
+    //  const newValue = currentValue.slice(0, -1);
+    const newValue = _.dropRight(currentValue.split('')).join(''); // dropRight() function from 'lodash'
     this.form.get('pinCode')?.setValue(newValue);
     this.makeTouchedAndDirty('pinCode');
   }
