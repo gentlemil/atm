@@ -9,6 +9,7 @@ import {
 } from '../models/types';
 import { environment } from '../../../environments/environment';
 import { map, Observable } from 'rxjs';
+import { ToastrService } from 'ngx-toastr';
 
 const API_URL: string = environment.apiUrl;
 
@@ -18,10 +19,11 @@ const API_URL: string = environment.apiUrl;
 export class AuthService {
   private readonly http = inject(HttpClient);
   private readonly persistanceService = inject(PersistanceService);
+  private readonly toast = inject(ToastrService);
 
   public login(pinCode: PinCode): Promise<IAuthResponse> {
     if (pinCode !== environment.validPassword) {
-      throw new Error('Invalid password');
+      return Promise.reject(new Error('Invalid password'));
       // TODO: display toast message
     }
     const url = API_URL + '/items/interview_auth';
@@ -32,8 +34,8 @@ export class AuthService {
       .toPromise()
       .then((res: IAuthResponse | undefined) => {
         if (!res) {
-          throw new Error('No response received');
-          // TODO: toast message
+          this.toast.error('Something went wrong. Try again.');
+          return Promise.reject(new Error('No response received'));
         }
         this.persistanceService.set('accessToken', res.data[0].token);
         return res;

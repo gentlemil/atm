@@ -19,6 +19,7 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { IAuthResponse } from '../../core/models/types';
 import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit {
   private pinAuthService = inject(PinAuthService);
   private fb = inject(FormBuilder);
   private router = inject(Router);
+  private toast = inject(ToastrService);
 
   public form!: FormGroup;
 
@@ -79,15 +81,14 @@ export class LoginComponent implements OnInit {
     const pinCode = this.form.controls['pinCode'].value;
     const isValid = this.pinAuthService.validatePinCode(pinCode);
 
-    // if (!isValid) {
-    //   console.log('Invalid PIN');
-    //   return;
-    // }
+    if (!isValid) {
+      this.toast.error('Invalid PIN. Try again.');
+      return;
+    }
 
     this.authService.login(pinCode).then((res: IAuthResponse) => {
-      console.log(res);
-
       if (res.data[0].token) {
+        this.toast.success('Login successful!');
         this.router.navigate(['/dashboard']);
       }
     });

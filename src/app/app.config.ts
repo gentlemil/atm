@@ -8,6 +8,7 @@ import { authInterceptor } from './core/interceptors/authInterceptor';
 
 import { providePrimeNG } from 'primeng/config';
 import Aura from '@primeng/themes/aura';
+import { provideToastr } from 'ngx-toastr';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -18,6 +19,13 @@ export const appConfig: ApplicationConfig = {
       theme: {
         preset: Aura,
       },
+    }),
+    provideToastr({
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+      closeButton: false,
+      tapToDismiss: true,
     }),
   ],
 };
