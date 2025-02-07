@@ -9,19 +9,20 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+
 import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { AuthService } from '../../core/services/auth.service';
 import { PinAuthService } from '../../core/services/pin-auth.service';
 import { IAuthResponse } from '../../core/models/types';
 
-import { PasswordModule } from 'primeng/password';
-import { ToastrService } from 'ngx-toastr';
-
 import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
 import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { InputErrorMessageComponent } from '../../shared/components/input-error-message/input-error-message.component';
+
+import { PasswordModule } from 'primeng/password';
+import { ToastrService } from 'ngx-toastr';
 
 import _ from 'lodash';
 

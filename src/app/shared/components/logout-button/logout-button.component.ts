@@ -16,7 +16,7 @@ export class LogoutButtonComponent {
   private router = inject(Router);
   private toast = inject(ToastrService);
 
-  public logout() {
+  public logout(): Promise<void> {
     return this.authService.logout().then(() => {
       this.toast.success('Thank you for today!');
       this.router.navigate(['/']);

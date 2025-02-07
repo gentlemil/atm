@@ -1,7 +1,8 @@
 import { ButtonModule } from 'primeng/button';
 import { Component, inject } from '@angular/core';
-import { LogoComponent } from '../../shared/components/logo/logo.component';
 import { Router } from '@angular/router';
+
+import { LogoComponent } from '../../shared/components/logo/logo.component';
 
 @Component({
   selector: 'app-landing-page',
@@ -13,7 +14,7 @@ import { Router } from '@angular/router';
 export class LandingPageComponent {
   private router = inject(Router);
 
-  public navigateTo(path: string) {
+  public navigateTo(path: string): Promise<boolean> {
     return this.router.navigate([path]);
   }
 }

@@ -1,9 +1,13 @@
-import { HttpErrorResponse, HttpInterceptorFn } from '@angular/common/http';
+import { HttpInterceptorFn } from '@angular/common/http';
 import { inject } from '@angular/core';
 
-import { PersistanceService } from '../services/persistance.service';
 import { catchError, throwError } from 'rxjs';
+
+import { PersistanceService } from '../services/persistance.service';
+
 import { ToastrService } from 'ngx-toastr';
+
+import _ from 'lodash';
 
 export const authInterceptor: HttpInterceptorFn = (request, next) => {
   const persistanceService = inject(PersistanceService);
@@ -23,12 +27,15 @@ export const authInterceptor: HttpInterceptorFn = (request, next) => {
   });
 
   return next(request).pipe(
-    catchError((error: HttpErrorResponse) => {
+    catchError((error) => {
       let errorMessage = 'An unknown error occurred!';
       if (error.error instanceof ErrorEvent) {
-        errorMessage = `Error: ${error.error.message}`; // Client-side error
+        errorMessage = `Error: ${error.error.message}`;
       } else {
-        errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`; // Server-side error
+        _.map(error.errors, (err) => {
+          console.error(`Error: ${err.message}`);
+          toast.error(`err.message`);
+        });
       }
       toast.error(errorMessage);
       return throwError(() => new Error(errorMessage));

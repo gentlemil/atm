@@ -1,4 +1,6 @@
 import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
+import { NgIf } from '@angular/common';
 import {
   FormBuilder,
   FormControl,
@@ -7,21 +9,26 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
+import { BalanceService } from '../../core/services/balance.service';
+
 import {
   decimalValidator,
   maxWithdrawValidator,
 } from '../../core/helpers/validators';
-import { Router, RouterLink } from '@angular/router';
-import { HeaderComponent } from '../../shared/components/header/header.component';
-import { NgIf } from '@angular/common';
-import { ButtonModule } from 'primeng/button';
-import { BalanceService } from '../../core/services/balance.service';
+
 import { Subject, takeUntil } from 'rxjs';
+
+import { HeaderComponent } from '../../shared/components/header/header.component';
 import { InputErrorMessageComponent } from '../../shared/components/input-error-message/input-error-message.component';
-import { InputTextModule } from 'primeng/inputtext';
 import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
-import _ from 'lodash';
+
+import { InputTextModule } from 'primeng/inputtext';
+import { ButtonModule } from 'primeng/button';
+
 import { ToastrService } from 'ngx-toastr';
+
+import _ from 'lodash';
 
 @Component({
   selector: 'app-withdraw',
@@ -62,7 +69,7 @@ export class WithdrawComponent implements OnInit, OnDestroy {
           this.form = this.fb.group({
             amount: new FormControl('', [
               Validators.required,
-              Validators.pattern('^[0-9]*$'),
+              Validators.pattern('^[0-9.]*$'),
               decimalValidator(),
               maxWithdrawValidator(this.balance),
             ]),
@@ -76,11 +83,10 @@ export class WithdrawComponent implements OnInit, OnDestroy {
   public withdraw(): void {
     if (this.form.valid) {
       const amount = this.form.controls['amount'].value;
-      console.log('Valid amount:', amount);
       this.toast.success(
         `You have just withdraw ${amount}$. You have ${
           this.balance - amount
-        } funds left in your account!`
+        }$ funds left in your account!`
       );
       this.form.patchValue({
         amount: 0,
@@ -91,8 +97,6 @@ export class WithdrawComponent implements OnInit, OnDestroy {
   }
 
   public updateAmountFormControl(event: number | string): void {
-    console.log(event);
-
     const currentValue = this.form.get('amount')?.value || '';
     // const newValue = currentValue + event;
     const newValue = _.concat(currentValue.split(''), event.toString()).join(

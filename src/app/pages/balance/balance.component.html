@@ -1,7 +1,8 @@
 <ng-container *ngIf="userBalance$ | async as balance">
   <ng-container *ngIf="!!balance">
     <div class="container">
-      <app-header>Your balace: {{ balance }} $</app-header>
+      <app-header>Your balace: {{ balance }}$</app-header>
+
       <div class="btn-container">
         <p-button
           [routerLink]="['/dashboard']"

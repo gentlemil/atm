@@ -4,7 +4,7 @@ export function decimalValidator(): ValidatorFn {
   return (control: AbstractControl): ValidationErrors | null => {
     const value = control.value;
     if (value === null || value === undefined || value === '') {
-      return null; // Don't validate empty values to allow required validator to handle them
+      return null;
     }
 
     const regex = /^\d+(\.\d{1,2})?$/;

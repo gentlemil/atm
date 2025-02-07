@@ -2,12 +2,13 @@ import { Component, inject } from '@angular/core';
 import { AsyncPipe, NgIf } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
-import { map } from 'rxjs';
+import { map, Observable } from 'rxjs';
 
 import { AuthService } from '../../core/services/auth.service';
 
 import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { IUserAccount } from '../../core/models/types';
 
 @Component({
   selector: 'app-balance',
@@ -20,11 +21,11 @@ export class BalanceComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
 
-  public userBalance$ = this.authService
+  public userBalance$: Observable<string> = this.authService
     .userData()
-    .pipe(map((res) => res.account_balance));
+    .pipe(map((res: IUserAccount) => res.account_balance));
 
-  public logout() {
+  public logout(): void {
     this.authService.logout().then(() => {
       this.router.navigate(['/login']);
     });

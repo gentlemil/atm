@@ -1,5 +1,7 @@
 import { Injectable } from '@angular/core';
+
 import { BehaviorSubject, Observable, timer } from 'rxjs';
+
 import { environment } from '../../../environments/environment';
 
 const MAX_ATTEMPTS = 3;
@@ -32,33 +34,35 @@ export class PinAuthService {
     }
 
     if (pinCode === this.correctPinCode) {
-      this.resetAttempts();
+      this._resetAttempts();
       return true;
     } else {
       this.attempts++;
       if (this.attempts >= MAX_ATTEMPTS) {
-        this.lockKeyboard();
+        this._lockKeyboard();
       }
       return false;
     }
   }
 
-  private resetAttempts(): void {
+  private _resetAttempts(): void {
     this.attempts = 0;
   }
 
-  private lockKeyboard(): void {
+  private _lockKeyboard(): void {
     this.isLockedSubject$.next(true);
-    this.startLockCounter();
+    this._startLockCounter();
+
     timer(this.lockDuration).subscribe(() => {
       this.isLockedSubject$.next(false);
-      this.resetAttempts();
+      this._resetAttempts();
       this.lockCounterSubject$.next(this.lockDuration / 1000);
     });
   }
 
-  private startLockCounter(): void {
+  private _startLockCounter(): void {
     let counter = this.lockDuration / 1000;
+
     const interval = setInterval(() => {
       counter--;
       this.lockCounterSubject$.next(counter);
