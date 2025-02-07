@@ -1,1 +1,11 @@
-<p>balance works!</p>
+<ng-container *ngIf="userBalance$ | async as balance">
+  <ng-container *ngIf="!!balance">
+    <h1>Your balace: {{ balance }} $</h1>
+  </ng-container>
+
+  <div class="btn-container">
+    <p-button>
+      <a [routerLink]="['/dashboard']">Back</a>
+    </p-button>
+  </div>
+</ng-container>
