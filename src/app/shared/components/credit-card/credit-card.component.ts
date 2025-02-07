@@ -3,6 +3,7 @@ import { Component, Input } from '@angular/core';
 import { IUserAccount } from '../../../core/models/types';
 
 @Component({
+  standalone: true,
   selector: 'app-credit-card',
   imports: [NgIf, DatePipe],
   templateUrl: './credit-card.component.html',

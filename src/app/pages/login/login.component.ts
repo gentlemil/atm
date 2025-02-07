@@ -20,6 +20,7 @@ import { Router } from '@angular/router';
 import { IAuthResponse } from '../../core/models/types';
 import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
 import { ToastrService } from 'ngx-toastr';
+import { HeaderComponent } from '../../shared/components/header/header.component';
 
 @Component({
   selector: 'app-login',
@@ -32,6 +33,7 @@ import { ToastrService } from 'ngx-toastr';
     PasswordModule,
     AsyncPipe,
     OnlyNumbersDirective,
+    HeaderComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass',
