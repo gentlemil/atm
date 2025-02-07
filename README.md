@@ -133,6 +133,14 @@ If no `token` is added to the request Headers, the server will return an error, 
 
 4. I also created my own decorator to check if the value entered into the input consists of digits only. Check `only-numbers.directive.ts`
 
+## Things to improve
+
+Certainly, the application is not perfect and could provide a better user experience and code performance. My ideas for improving the app:
+
+- Adding `SSR`,
+- Adding a `Loading Spinner` and `Skeletons` in case data loading takes more time,
+- Improving the `UI` and `SASS files` by separating into separate `_variables.sass` files and creating appropriate `mixins` and `functions` and `animations`.
+
 ## How to build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
