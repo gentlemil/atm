@@ -17,29 +17,21 @@
     <div class="errors-container">
       @if (form.controls['pinCode'].invalid && (form.controls['pinCode'].dirty))
       {
-      <p
-        class="errors-container__error-message"
+      <app-input-error-message
         *ngIf="form.controls['pinCode'].errors?.['required']"
+        >PIN is required.</app-input-error-message
       >
-        PIN is required.
-      </p>
-
-      <p
-        class="errors-container__error-message"
+      <app-input-error-message
         *ngIf="form.controls['pinCode'].errors?.['pattern']"
+        >PIN must contain only digits 0-9.</app-input-error-message
       >
-        PIN must contain only digits 0-9.
-      </p>
-
-      <p
-        class="errors-container__error-message"
+      <app-input-error-message
         *ngIf="
         form.controls['pinCode'].errors?.['minlength'] ||
         form.controls['pinCode'].errors?.['maxlength']
       "
+        >PIN must be exactly 4 digits.</app-input-error-message
       >
-        PIN must be exactly 4 digits.
-      </p>
       }
 
       <p class="errors-container__error-message" *ngIf="isLocked$ | async">

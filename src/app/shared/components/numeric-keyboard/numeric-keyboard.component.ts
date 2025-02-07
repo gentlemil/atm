@@ -18,8 +18,9 @@ import { ButtonModule } from 'primeng/button';
 })
 export class NumericKeyboardComponent {
   @Input({ required: false }) disabled = false;
+  @Input({ required: false }) showComma = false;
 
-  @Output() keyboardEmitter = new EventEmitter<number>();
+  @Output() keyboardEmitter = new EventEmitter<number | string>();
   @Output() removeLastDigitEmitter = new EventEmitter<void>();
   @Output() confirmPinCodeEmitter = new EventEmitter<void>();
 }

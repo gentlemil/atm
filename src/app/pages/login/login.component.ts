@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { AsyncPipe, NgIf } from '@angular/common';
 import {
   FormBuilder,
@@ -8,19 +8,22 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { AuthService } from '../../core/services/auth.service';
 import { PinAuthService } from '../../core/services/pin-auth.service';
-
-import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
+import { IAuthResponse } from '../../core/models/types';
 
 import { PasswordModule } from 'primeng/password';
-import { Observable } from 'rxjs';
-import { Router } from '@angular/router';
-import { IAuthResponse } from '../../core/models/types';
-import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
 import { ToastrService } from 'ngx-toastr';
+
+import { NumericKeyboardComponent } from '../../shared/components/numeric-keyboard/numeric-keyboard.component';
+import { OnlyNumbersDirective } from '../../shared/directives/only-numbers.directive';
 import { HeaderComponent } from '../../shared/components/header/header.component';
+import { InputErrorMessageComponent } from '../../shared/components/input-error-message/input-error-message.component';
+
+import _ from 'lodash';
 
 @Component({
   selector: 'app-login',
@@ -34,11 +37,12 @@ import { HeaderComponent } from '../../shared/components/header/header.component
     AsyncPipe,
     OnlyNumbersDirective,
     HeaderComponent,
+    InputErrorMessageComponent,
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.sass',
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   private authService = inject(AuthService);
   private pinAuthService = inject(PinAuthService);
   private fb = inject(FormBuilder);
@@ -49,6 +53,8 @@ export class LoginComponent implements OnInit {
 
   public isLocked$: Observable<boolean> = this.pinAuthService.isLocked$;
   public lockCounter$: Observable<number> = this.pinAuthService.lockCounter$;
+
+  private destroy$ = new Subject<void>();
 
   public ngOnInit(): void {
     this.form = this.fb.group({
@@ -61,7 +67,7 @@ export class LoginComponent implements OnInit {
     });
   }
 
-  public updatePinCodeFormControl(event: number): void {
+  public updatePinCodeFormControl(event: number | string): void {
     const currentValue = this.form.get('pinCode')?.value || '';
     // const newValue = currentValue + event;
     const newValue = _.concat(currentValue.split(''), event.toString()).join(
@@ -102,7 +108,10 @@ export class LoginComponent implements OnInit {
   }
 
   public getUserDetails() {
-    return this.authService.userData().subscribe();
+    return this.authService
+      .userData()
+      .pipe(takeUntil(this.destroy$))
+      .subscribe();
   }
 
   private makeTouchedAndDirty(controlName: string): void {
@@ -111,5 +120,10 @@ export class LoginComponent implements OnInit {
       control.markAsDirty();
       control.markAsTouched();
     }
+  }
+
+  public ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
   }
 }

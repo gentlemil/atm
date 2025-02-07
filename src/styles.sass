@@ -1,9 +1,11 @@
-@import "primeicons/primeicons.css"
-@import 'ngx-toastr/toastr'
+@use "primeicons/primeicons.css"
+@use 'ngx-toastr/toastr'
 
 
 $blue: #0032a1
 $gold: #FEB91C
+$green: #55a855
+$red: #da3e33
 
 body
     background: $blue
@@ -13,11 +15,11 @@ body
 // toastr styles
 .toast-success 
   width: fit-content !important
-  background-color: #55a855 !important
+  background-color: $green !important
 
 .toast-error 
   width: fit-content !important
-  background-color: #da3e33 !important
+  background-color: $red !important
 
 .toast-message 
   font-size: 1rem !important

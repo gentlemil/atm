@@ -9,11 +9,23 @@
       </div>
 
       <div class="btns-container">
-        <p-button>
-          <a [routerLink]="['/balance']">Balance</a>
+        <p-button
+          [raised]="true"
+          severity="secondary"
+          [routerLink]="['/balance']"
+          size="large"
+        >
+          <div class="btn-title">Balance</div>
         </p-button>
 
-        <p-button><a [routerLink]="['/withdraw']">Withdraw</a></p-button>
+        <p-button
+          [raised]="true"
+          severity="secondary"
+          (onClick)="navigateToWithdraw(vm.user.account_balance)"
+          size="large"
+        >
+          <div class="btn-title">Withdraw</div>
+        </p-button>
       </div>
     </section>
   </ng-container>

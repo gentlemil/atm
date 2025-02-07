@@ -1,1 +1,56 @@
-<p>withdraw works!</p>
+<section class="withdraw-page">
+  <app-header>Withdraw</app-header>
+
+  <form *ngIf="form" [formGroup]="form">
+    <input
+      pInputText
+      formControlName="amount"
+      type="text"
+      pSize="large"
+      placeholder="Enter amount"
+    />
+
+    <div class="errors-container">
+      <ng-container
+        *ngIf="
+          form.controls['amount'].invalid && form.controls['amount'].touched
+        "
+      >
+        <app-input-error-message
+          *ngIf="form.controls['amount'].errors?.['required']"
+          >Amount is required.</app-input-error-message
+        >
+        <app-input-error-message
+          *ngIf="form.controls['amount'].errors?.['invalidDecimal']"
+          >Invalid amount. Must be a number with up to 2 decimal
+          places.</app-input-error-message
+        >
+        <app-input-error-message
+          *ngIf="form.controls['amount'].errors?.['exceedsBalance']"
+          >Amount exceeds available balance.</app-input-error-message
+        >
+      </ng-container>
+    </div>
+
+    <app-numeric-keyboard
+      (keyboardEmitter)="updateAmountFormControl($event)"
+      (removeLastDigitEmitter)="removeLastDigit()"
+      [showComma]="true"
+    ></app-numeric-keyboard>
+  </form>
+
+  <div class="btn-container">
+    <p-button
+      [routerLink]="['/dashboard']"
+      [raised]="true"
+      size="large"
+      severity="secondary"
+    >
+      <div class="btn-title">Back</div>
+    </p-button>
+
+    <p-button (onClick)="withdraw()" [raised]="true" size="large">
+      <div class="btn-title">Confirm</div>
+    </p-button>
+  </div>
+</section>

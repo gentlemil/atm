@@ -1,11 +1,20 @@
 <ng-container *ngIf="userBalance$ | async as balance">
   <ng-container *ngIf="!!balance">
-    <h1>Your balace: {{ balance }} $</h1>
-  </ng-container>
+    <div class="container">
+      <app-header>Your balace: {{ balance }} $</app-header>
+      <div class="btn-container">
+        <p-button
+          [routerLink]="['/dashboard']"
+          [raised]="true"
+          severity="secondary"
+        >
+          <div class="btn-title">Back</div>
+        </p-button>
 
-  <div class="btn-container">
-    <p-button>
-      <a [routerLink]="['/dashboard']">Back</a>
-    </p-button>
-  </div>
+        <p-button (onClick)="logout()" [raised]="true" severity="secondary">
+          <div class="btn-title">Cancel</div>
+        </p-button>
+      </div>
+    </div>
+  </ng-container>
 </ng-container>
