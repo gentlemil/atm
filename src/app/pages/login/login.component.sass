@@ -1,20 +1,15 @@
+@use 'assets/styles/mixins' as mixins
+
 .login-page
     margin: 0 auto
-    padding-top: 5rem
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    
+    @include mixins.flexCenter(column)
+
     form
-        display: flex
-        flex-direction: column
+        @include mixins.flexCenter(column)
 
         .errors-container
-            padding-top: 0.5rem
-            display: flex
-            flex-direction: column
-            align-items: center
+            padding-top: 0.25rem
             height: 50px
+            @include mixins.flexCenter(column)
     .input 
         margin: 0 auto

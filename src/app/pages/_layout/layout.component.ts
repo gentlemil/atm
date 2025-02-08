@@ -5,10 +5,11 @@ import { RouterOutlet } from '@angular/router';
   standalone: true,
   selector: 'app-layout',
   template: `
-    <main class="px-4 py-6">
+    <main>
       <router-outlet />
     </main>
   `,
+  styleUrl: './layout.component.sass',
   changeDetection: ChangeDetectionStrategy.OnPush,
   imports: [RouterOutlet],
 })

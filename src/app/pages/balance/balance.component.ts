@@ -9,11 +9,19 @@ import { AuthService } from '../../core/services/auth.service';
 import { ButtonModule } from 'primeng/button';
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { IUserAccount } from '../../core/models/types';
+import { LogoutButtonComponent } from '../../shared/components/logout-button/logout-button.component';
 
 @Component({
   selector: 'app-balance',
   standalone: true,
-  imports: [NgIf, AsyncPipe, ButtonModule, RouterLink, HeaderComponent],
+  imports: [
+    NgIf,
+    AsyncPipe,
+    ButtonModule,
+    RouterLink,
+    HeaderComponent,
+    LogoutButtonComponent,
+  ],
   templateUrl: './balance.component.html',
   styleUrl: './balance.component.sass',
 })

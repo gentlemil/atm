@@ -111,7 +111,12 @@ export class WithdrawComponent implements OnInit, OnDestroy {
 
   public removeLastDigit(): void {
     const currentValue = this.form.get('amount')?.value || '';
-    //  const newValue = currentValue.slice(0, -1);
+
+    if (currentValue === '') {
+      return;
+    }
+
+    //  const newValue = currentValue.slice(0, -1);                 // alternatively
     const newValue = _.dropRight(currentValue.split('')).join(''); // dropRight() function from 'lodash'
     this.form.get('amount')?.setValue(newValue);
     this.makeTouchedAndDirty('amount');

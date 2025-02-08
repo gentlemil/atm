@@ -1,10 +1,13 @@
+@use 'assets/styles/mixins' as mixins
+
 .withdraw-page
     margin: 0 auto
-    padding-top: 5rem
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
+    @include mixins.flexCenter(column)
+
+    &__logout-btn
+        position: absolute
+        top: 1.5rem
+        right: 1.5rem
     
     form
         display: flex
@@ -21,8 +24,7 @@
         height: 50px
 
     .btn-container
-        padding-top: 2rem
-        display: flex
-        justify-content: center
+        padding-top: 1.5rem
+        @include mixins.flexCenter(row)
         gap: 2rem
     

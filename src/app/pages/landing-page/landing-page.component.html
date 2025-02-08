@@ -8,14 +8,14 @@
 
   <div class="btn-container">
     <div class="card flex justify-center">
-      <button
-        pButton
-        type="button"
-        class="gold-btn"
+      <p-button
+        [raised]="true"
+        severity="secondary"
         (click)="navigateTo('/login')"
+        size="large"
       >
-        <span pButtonLabel class="gold-btn__text">SIGN IN</span>
-      </button>
+        <div class="btn-title">Sign in</div>
+      </p-button>
     </div>
   </div>
 </div>

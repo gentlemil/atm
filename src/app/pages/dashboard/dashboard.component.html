@@ -1,6 +1,7 @@
 <ng-container *ngIf="{ user: user$ | async } as vm">
   <ng-container *ngIf="!!vm.user">
     <section class="dashboard">
+      <app-logout-button class="dashboard__logout-btn" />
       <app-header>{{
         "Hello " + vm.user.first_name + " " + vm.user.last_name + "!"
       }}</app-header>
@@ -31,5 +32,3 @@
     </section>
   </ng-container>
 </ng-container>
-
-<app-logout-button />

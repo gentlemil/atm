@@ -1,6 +1,8 @@
 <section class="withdraw-page">
   <app-header>Withdraw</app-header>
 
+  <app-logout-button class="withdraw-page__logout-btn" />
+
   <form *ngIf="form" [formGroup]="form">
     <input
       pInputText
@@ -30,13 +32,13 @@
         >
       </ng-container>
     </div>
-
-    <app-numeric-keyboard
-      (keyboardEmitter)="updateAmountFormControl($event)"
-      (removeLastDigitEmitter)="removeLastDigit()"
-      [showComma]="true"
-    ></app-numeric-keyboard>
   </form>
+
+  <app-numeric-keyboard
+    (keyboardEmitter)="updateAmountFormControl($event)"
+    (removeLastDigitEmitter)="removeLastDigit()"
+    [showComma]="true"
+  ></app-numeric-keyboard>
 
   <div class="btn-container">
     <p-button
@@ -52,6 +54,4 @@
       <div class="btn-title">Confirm</div>
     </p-button>
   </div>
-
-  <app-logout-button />
 </section>

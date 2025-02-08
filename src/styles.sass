@@ -1,27 +1,13 @@
 @use "primeicons/primeicons.css"
-@use 'ngx-toastr/toastr'
-
-
-$blue: #0032a1
-$gold: #FEB91C
-$green: #55a855
-$red: #da3e33
+@use 'assets/styles/toast' as toast
+@use 'assets/styles/mixins' as mixins
+@use 'assets/styles/variables' as variables
 
 body
-    background: $blue
+    background: variables.$white
     font-family: Roboto, 'Helvetica Neue', sans-serif
     box-sizing: border-box
-
-// toastr styles
-.toast-success 
-  width: fit-content !important
-  background-color: $green !important
-
-.toast-error 
-  width: fit-content !important
-  background-color: $red !important
-
-.toast-message 
-  font-size: 1rem !important
-  font-weight: 200 !important
+    width: 100vw
+    height: 100vh
+    @include mixins.center-content
 

@@ -81,7 +81,12 @@ export class LoginComponent implements OnInit, OnDestroy {
 
   public removeLastDigit(): void {
     const currentValue = this.form.get('pinCode')?.value || '';
-    //  const newValue = currentValue.slice(0, -1);
+
+    if (currentValue === '') {
+      return;
+    }
+
+    //  const newValue = currentValue.slice(0, -1);                 // alternatively
     const newValue = _.dropRight(currentValue.split('')).join(''); // dropRight() function from 'lodash'
     this.form.get('pinCode')?.setValue(newValue);
     this.makeTouchedAndDirty('pinCode');

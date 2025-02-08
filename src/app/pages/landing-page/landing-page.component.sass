@@ -1,38 +1,35 @@
-$gold: #FEB91C
+@use 'assets/styles/variables' as variables
+@use 'assets/styles/mixins' as mixins
 
 .container
-    padding-top: 4rem
+    padding: 2rem 1rem
     display: flex
     flex-direction: column
     align-items: center
     justify-center: center
+    overflow: auto
 
     .subtitle 
-        font-color: #ffffff
-        font-size: 1.5rem
-        font-weight: 400
-        letter-spacing: 2px
+        font-color: variables.$white
+        font-size: 1.25rem
+        font-weight: 200
+        letter-spacing: 1.75px
         text-align: center
-        width: 800px
-        line-height: 2.5rem
+        max-width: 600px
+        line-height: 2.25rem
 
     .btn-container
-        padding-top: 6rem
+        padding-top: 2rem
         display: flex
         align-items: center
         justify-center: center
 
-.gold-btn 
-    background: var(--p-amber-300)
-    height: 100%
-    border-radius: 50px
-    border: none
+    .btns-container 
+        width: 100%
+        margin: 0 auto
+        @include mixins.flexCenter(row)
+        gap: 4rem
 
-    &__text
-        text-decoration: none
-        color: #000000
-        font-size: 2.75rem
-        font-weight: 500
-        padding: 1.25rem 0.5rem
-        letter-spacing: 3px
-        width: 300px
+.btn-title
+    font-size: 1.75rem
+    letter-spacing: 1px

@@ -1,17 +1,19 @@
+@use 'assets/styles/mixins' as mixins
+
 .dashboard
-    padding: 3rem
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
+    position: relative
     gap: 2rem
-        
+
+    &__logout-btn
+        position: absolute
+        top: -1.5rem
+        right: 1.5rem
+    
+
     .btns-container 
         width: 100%
         margin: 0 auto
-        display: flex
-        justify-content: center
-        align-items: center
+        @include mixins.flexCenter(row)
         gap: 4rem
 
 .btn-title

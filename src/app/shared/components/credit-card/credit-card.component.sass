@@ -1,3 +1,5 @@
+@use 'assets/styles/variables' as variables
+
 a
   color: #000
 
@@ -31,9 +33,7 @@ a
   font-size: 12px
 
 .panel
-  width: 600px
   margin: 0 auto
-  margin-bottom: 50px
   text-align: center
 
 .card
@@ -71,17 +71,49 @@ a
 
   &__owner
     text-align: left
-  
+    font-size: 1.25rem
+    position: absolute
+    bottom: 1rem
 
   &__logo
     position: absolute
     right: 20px
     bottom: 20px
 
+  &__strip
+    background: #000000
+    margin-top: 20%
+    height: 50px
+    margin-bottom: 30px
+  
+
+  &__signature
+    float: left
+    width: 65%
+    height: 40px
+    margin-top: 30px
+    margin-left: 10px
+    background: #999
+  
+
+  &__ccv
+    float: left
+    margin-top: 0px
+    padding: 7px
+    background: #fff
+    color: #111
+    line-height: 1
+  
+
   &--front
     font-size: 16px
     font-family: 'Source Code Pro'
-    text-shadow: 0 1px 1px rgba(0, 0, 0, .6)
+    text-shadow: 0 1px 1px variables.$black
 
+  --back
+    padding-left: 0
+    padding-right: 0
+    text-align: left
+  
 
 
