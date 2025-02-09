@@ -1,7 +1,31 @@
 @use 'assets/styles/variables' as variables
 
-a
-  color: #000
+.flip-box:hover .flip-box-inner
+  transform: rotateY(180deg)
+
+.flip-box-inner
+  position: relative
+  width: 100%
+  height: 100%
+  text-align: center
+  transition: transform 0.8s
+  transform-style: preserve-3d
+
+.flip-box-front, .flip-box-back
+  position: absolute
+  width: 100%
+  height: 100%
+  -webkit-backface-visibility: hidden /* Safari */
+  backface-visibility: hidden
+
+.flip-box-front
+  background-color: #bbb
+  color: black
+
+.flip-box-back
+  background-color: dodgerblue
+  color: white
+  transform: rotateY(180deg)
 
 .header
     border: 1px solid #6C6
@@ -31,10 +55,6 @@ a
   text-align: center
   padding: 0 0 30px 0
   font-size: 12px
-
-.panel
-  margin: 0 auto
-  text-align: center
 
 .card
   font: 16px/1.5 'Helvetica Neue', Helvetica, sans-serif
