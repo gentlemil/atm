@@ -17,7 +17,7 @@ import {
   maxWithdrawValidator,
 } from '../../core/helpers/validators';
 
-import { Subject, takeUntil } from 'rxjs';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 import { HeaderComponent } from '../../shared/components/header/header.component';
 import { InputErrorMessageComponent } from '../../shared/components/input-error-message/input-error-message.component';
@@ -56,6 +56,7 @@ export class WithdrawComponent implements OnInit, OnDestroy {
   private toast = inject(ToastrService);
 
   public form!: FormGroup;
+  private isFormChanged = false;
 
   public balance!: number;
 
@@ -80,6 +81,25 @@ export class WithdrawComponent implements OnInit, OnDestroy {
           this.router.navigate(['/dashboard']);
         }
       });
+    this.form.valueChanges.subscribe(() => {
+      this.isFormChanged = true;
+    });
+  }
+
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.isFormChanged) {
+      return new Observable<boolean>((observer) => {
+        this.toast
+          .warning(
+            'Are you sure you want to leave this page? You have unsaved changes.'
+          )
+          .onTap.subscribe(() => {
+            observer.next(true);
+            observer.complete();
+          });
+      });
+    }
+    return true;
   }
 
   public withdraw(): void {
@@ -96,23 +116,33 @@ export class WithdrawComponent implements OnInit, OnDestroy {
     } else {
       this.toast.error('Invalid amount!');
     }
+    this.isFormChanged = false;
   }
 
   public updateAmountFormControl(event: number | string): void {
     const currentValue = this.form.get('amount')?.value || '';
     // const newValue = currentValue + event;
     const newValue = _.concat(currentValue.split(''), event.toString()).join(
-      // concat() function from 'lodash;
       ''
-    );
+    ); // concat() function from 'lodash;
     this.form.get('amount')?.setValue(newValue);
-    this.makeTouchedAndDirty('amount');
+
+    if (newValue !== '') {
+      this.makeTouchedAndDirty('amount');
+    } else {
+      this.form.get('amount')?.markAsUntouched();
+      this.form.get('amount')?.markAsPristine();
+      this.isFormChanged = false;
+    }
   }
 
   public removeLastDigit(): void {
     const currentValue = this.form.get('amount')?.value || '';
 
     if (currentValue === '') {
+      this.form.get('amount')?.markAsUntouched();
+      this.form.get('amount')?.markAsPristine();
+      this.isFormChanged = false;
       return;
     }
 

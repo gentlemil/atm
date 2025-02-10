@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LayoutComponent } from './_layout/layout.component';
 import { AuthGuard } from '../core/guards/auth.guard';
+import { CanDeactivateGuard } from '../core/guards/can-deactivate.guard';
 
 export const ATM_ROUTES: Routes = [
   {
@@ -38,6 +39,7 @@ export const ATM_ROUTES: Routes = [
       {
         path: 'withdraw',
         canActivate: [AuthGuard],
+        canDeactivate: [CanDeactivateGuard],
         loadComponent: () =>
           import('./withdraw/withdraw.component').then(
             (x) => x.WithdrawComponent
