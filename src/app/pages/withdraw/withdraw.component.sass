@@ -8,10 +8,23 @@
         position: absolute
         top: 1.5rem
         right: 1.5rem
+
+    .grid-container 
+        display: grid
+        grid-template-columns: repeat(4, 1fr)
+        gap: 0.5rem
     
-    form
-        display: flex
-        flex-direction: column
+        form
+            display: flex
+            flex-direction: column
+        
+        .col-span-2
+            grid-column: span 2 / span 2
+            @include mixins.flexCenter(column)
+        
+        .btns
+            @include mixins.flexJustify(end)
+        
 
     .input 
         margin: 0 auto

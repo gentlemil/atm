@@ -3,55 +3,61 @@
 
   <app-logout-button class="withdraw-page__logout-btn" />
 
-  <form *ngIf="form" [formGroup]="form">
-    <input
-      pInputText
-      formControlName="amount"
-      pSize="large"
-      placeholder="Enter amount"
-    />
+  <div class="grid-container">
+    <div></div>
+    <div class="col-span-2">
+      <form *ngIf="form" [formGroup]="form">
+        <input
+          pInputText
+          formControlName="amount"
+          pSize="large"
+          placeholder="Enter amount"
+        />
 
-    <div class="errors-container">
-      <ng-container
-        *ngIf="
-          form.controls['amount'].invalid && form.controls['amount'].touched
-        "
-      >
-        <app-input-error-message
-          *ngIf="form.controls['amount'].errors?.['required']"
-          >Amount is required.</app-input-error-message
-        >
-        <app-input-error-message
-          *ngIf="form.controls['amount'].errors?.['invalidDecimal']"
-          >Invalid amount. Must be a number with up to 2 decimal
-          places.</app-input-error-message
-        >
-        <app-input-error-message
-          *ngIf="form.controls['amount'].errors?.['exceedsBalance']"
-          >Amount exceeds available balance.</app-input-error-message
-        >
-      </ng-container>
+        <div class="errors-container">
+          <ng-container
+            *ngIf="
+              form.controls['amount'].invalid && form.controls['amount'].touched
+            "
+          >
+            <app-input-error-message
+              *ngIf="form.controls['amount'].errors?.['required']"
+              >Amount is required.</app-input-error-message
+            >
+            <app-input-error-message
+              *ngIf="form.controls['amount'].errors?.['invalidDecimal']"
+              >Invalid amount. Must be a number with up to 2 decimal
+              places.</app-input-error-message
+            >
+            <app-input-error-message
+              *ngIf="form.controls['amount'].errors?.['exceedsBalance']"
+              >Amount exceeds available balance.</app-input-error-message
+            >
+          </ng-container>
+        </div>
+      </form>
+
+      <app-numeric-keyboard
+        (keyboardEmitter)="updateAmountFormControl($event)"
+        (removeLastDigitEmitter)="removeLastDigit()"
+        [showComma]="true"
+      ></app-numeric-keyboard>
     </div>
-  </form>
+    <div class="btns">
+      <div class="btn-container">
+        <p-button
+          [routerLink]="['/dashboard']"
+          [raised]="true"
+          size="large"
+          severity="secondary"
+        >
+          <div class="btn-title">Back</div>
+        </p-button>
 
-  <app-numeric-keyboard
-    (keyboardEmitter)="updateAmountFormControl($event)"
-    (removeLastDigitEmitter)="removeLastDigit()"
-    [showComma]="true"
-  ></app-numeric-keyboard>
-
-  <div class="btn-container">
-    <p-button
-      [routerLink]="['/dashboard']"
-      [raised]="true"
-      size="large"
-      severity="secondary"
-    >
-      <div class="btn-title">Back</div>
-    </p-button>
-
-    <p-button (onClick)="withdraw()" [raised]="true" size="large">
-      <div class="btn-title">Confirm</div>
-    </p-button>
+        <p-button (onClick)="withdraw()" [raised]="true" size="large">
+          <div class="btn-title">Confirm</div>
+        </p-button>
+      </div>
+    </div>
   </div>
 </section>
